@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 //import component Bootstrap React
 import { Card, Container, Row, Col, Button, Table, Modal, Form } from 'react-bootstrap';
 
+import { Link } from "react-router-dom";
 //import axios
 import axios from 'axios';
 import moment from 'moment';
@@ -189,7 +190,7 @@ function TodoList() {
                     <th>DESKRIPSI</th>
                     <th>DEADLINE</th>
                     <th>STATUS</th>
-                    <th>AKSI</th>
+                    <th colSpan="2" className='text-center'>AKSI</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -203,7 +204,12 @@ function TodoList() {
                       <td style={{ color: getStatusColor(todolists.status), backgroundColor: getStatusBackground(todolists.status) }}>
                         {todolists.status}
                       </td>
-                      <td className="text-center"></td>
+                      <td className="text-center">
+                        <Button as={Link} to={todolists.id ? `/todolist/edit/${todolists.id}` : '#'} variant="primary" size="sm" className="me-2">EDIT</Button>
+                      </td>
+                      <td className="text-center">
+                        <Button variant="danger" size="sm" className="me-2">HAPUS</Button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -239,7 +245,7 @@ function TodoList() {
 
             <Form.Group controlId="descriptionInput">
               <Form.Label>Deskripsi</Form.Label>
-              <Form.Control type="text" value={description} onChange={handleDescriptionChange} />
+              <Form.Control as="textarea" value={description} onChange={handleDescriptionChange} />
             </Form.Group>
 
             <Form.Group controlId="dueDateInput">

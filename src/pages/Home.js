@@ -9,7 +9,7 @@ function Home() {
                     <Card className="border-0 rounded shadow-sm">
                         <Card.Body className="p-4">
                         <h1>App TO DO LIST Using ReactJS</h1>
-                        <p class="lead">Tutorial FullStack Express.js dan React.js oleh <strong>SantriKoding.com</strong></p>
+                        <p className="lead">Tutorial FullStack Express.js dan React.js oleh <strong>SantriKoding.com</strong></p>
                         <Button href="http://santrikoding.com" target="_blank" variant="primary" size="lg">SELENGKAPNYA</Button>
                         </Card.Body>
                     </Card>

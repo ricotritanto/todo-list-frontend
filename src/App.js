@@ -20,7 +20,7 @@ import TaskEdit from './pages/tasks/Edit'
 import TodolistIndex from './pages/todolist/Index'
 
 //import component Post Create
-import TodolistCreate from './pages/todolist/Create'
+// import TodolistCreate from './pages/todolist/Create'
 
 //import component Post Edit
 import TodolistEdit from './pages/todolist/Edit'
@@ -52,7 +52,7 @@ function App() {
         <Route exact path="/task/edit/:id" component={TaskEdit} />
 
         <Route exact path="/todolist" component={TodolistIndex} />
-        <Route exact path="/todolist/create" component={TodolistCreate} />
+        {/* <Route exact path="/todolist/create" component={TodolistCreate} /> */}
         <Route exact path="/todolist/edit/:id" component={TodolistEdit} />
       </Switch>
       
