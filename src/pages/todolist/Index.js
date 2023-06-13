@@ -26,6 +26,8 @@ function TodoList() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const statusList = ['failed', 'progress', 'done'];
+  const [deleteDolistId, setDeleteDolistId] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   //useEffect hook
   useEffect(() => {
@@ -110,6 +112,24 @@ function TodoList() {
     setInputErrors({});
   }
 
+  const handleDelete = async () => {
+    // tambahkan konfirmasi alert sebelum menghapus
+    await axios.delete(`http://localhost:3001/api/dolist/${deleteDolistId}`);
+    fetchData();
+    setShowDeleteModal(false);
+  }
+
+  const openDeleteModal = (id) => {
+    setDeleteDolistId(id);
+    setShowDeleteModal(true);
+  }
+
+  const closeDeleteModal = () => {
+    setDeleteDolistId('');
+    setShowDeleteModal(false);
+}
+
+
   const handleAddTodo = async () => {
     // Reset input errors
     setInputErrors({});
@@ -152,13 +172,11 @@ function TodoList() {
     if (isValid) {
       const newTodo = {
         task: selectedTask,
+        description: description,
         name: name,
         dueDate: dueDate,
         status: selectedStatus,
       };
-
-      console.log(newTodo)
-
       try {
         await axios.post('http://localhost:3001/api/dolist', newTodo);
         handleModalClose();
@@ -208,7 +226,7 @@ function TodoList() {
                         <Button as={Link} to={todolists.id ? `/todolist/edit/${todolists.id}` : '#'} variant="primary" size="sm" className="me-2">EDIT</Button>
                       </td>
                       <td className="text-center">
-                        <Button variant="danger" size="sm" className="me-2">HAPUS</Button>
+                        <Button onClick={() => openDeleteModal(todolists.id)} variant="danger" size="sm">HAPUS</Button>
                       </td>
                     </tr>
                   ))}
@@ -290,6 +308,17 @@ function TodoList() {
             OK
           </Button>
         </Modal.Footer>
+      </Modal>
+
+      <Modal show={showDeleteModal} onHide={closeDeleteModal}>
+          <Modal.Header closeButton>
+              <Modal.Title>Konfirmasi Hapus</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Apakah Anda yakin ingin menghapus TodoList ini?</Modal.Body>
+          <Modal.Footer>
+              <Button variant="secondary" onClick={closeDeleteModal}>Batal</Button>
+              <Button variant="danger" onClick={handleDelete}>Hapus</Button>
+          </Modal.Footer>
       </Modal>
     </Container>
   );
